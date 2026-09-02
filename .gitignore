@@ -1,0 +1,36 @@
+.venv/
+__pycache__/
+*.pyc
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+k8s/core/02-secrets.local.yaml
+k8s/security/orderflow-secrets.sealed.yaml
+*.pem
+*.key
+*.crt
+coverage.xml
+.pytest_cache/
+.ruff_cache/
+.coverage
+coverage-*.xml
+htmlcov/
+playwright-report/
+test-results/
+*.pytest-*.db
+.pytest-*.db
+
+# Stage 13 local GitOps render scratch
+gitops/.generated/
+# Stage 19 / public repository safety
+.terraform/
+*.tfstate
+*.tfstate.*
+kubeconfig
+*.p12
+*.pfx
+.DS_Store
+Thumbs.db
+reports/
