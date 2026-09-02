@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package orderflow.inventory.v1;
+
+service InventoryService {
+  rpc CheckStock(CheckStockRequest) returns (CheckStockResponse);
+  rpc ReserveStock(ReserveStockRequest) returns (ReserveStockResponse);
+  rpc ReleaseStock(ReleaseStockRequest) returns (ReleaseStockResponse);
+  rpc Ping(PingRequest) returns (PingResponse);
+}
+
+message StockItem {
+  int32 product_id = 1;
+  int32 quantity = 2;
+}
+
+message CheckStockRequest {
+  repeated StockItem items = 1;
+}
+
+message StockAvailability {
+  int32 product_id = 1;
+  int32 requested = 2;
+  int32 available = 3;
+  bool sufficient = 4;
+}
+
+message CheckStockResponse {
+  repeated StockAvailability items = 1;
+  bool all_available = 2;
+}
+
+message ReserveStockRequest {
+  string operation_id = 1;
+  repeated StockItem items = 2;
+}
+
+message ReservedStockItem {
+  int32 product_id = 1;
+  int32 quantity = 2;
+  int32 remaining_stock = 3;
+}
+
+message ReserveStockResponse {
+  string operation_id = 1;
+  repeated ReservedStockItem items = 2;
+}
+
+message ReleaseStockRequest {
+  string operation_id = 1;
+}
+
+message ReleaseStockResponse {
+  bool released = 1;
+  bool idempotent = 2;
+  string reason = 3;
+}
+
+message PingRequest {}
+
+message PingResponse {
+  string status = 1;
+  string service = 2;
+}
